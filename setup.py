@@ -1,4 +1,5 @@
 from setuptools import setup
+import pip
 from pip.req import parse_requirements
 import os
 
@@ -16,7 +17,8 @@ def read(fname, split=False):
 
 
 def requirements(fname='requirements.txt'):
-    return [str(r.req) for r in parse_requirements(abspath(fname))]
+    req = parse_requirements(fname, session=pip.download.PipSession())
+    return [str(r.req) for r in req]
 
 
 setup(name='DeepCpG',
@@ -25,6 +27,6 @@ setup(name='DeepCpG',
                   'methylation states',
       author='Christof Angermueller',
       author_email='cangermueller@gmail.com',
-      license = "BSD",
+      license="BSD",
       install_requires=requirements()
       )

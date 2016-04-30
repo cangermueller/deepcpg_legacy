@@ -14,7 +14,7 @@ from keras.callbacks import ModelCheckpoint
 
 import deepcpg.evaluation as ev
 import deepcpg.utils as ut
-import deepcpg.utils as io
+import deepcpg.io as io
 import deepcpg.net as net
 import deepcpg.callbacks as cb
 from deepcpg.net_params import Params
@@ -53,7 +53,7 @@ def perf_logs_str(logs):
 
 def evaluate(y, z, targets, *args, **kwargs):
     p = ev.evaluate_all(y, z, *args, **kwargs)
-    p.index = ut.target_id2name(p.index.values, targets)
+    p.index = io.target_id2name(p.index.values, targets)
     p.index.name = 'target'
     p.reset_index(inplace=True)
     p.sort_values('target', inplace=True)
@@ -63,7 +63,7 @@ def evaluate(y, z, targets, *args, **kwargs):
 def eval_io(model, y, z, out_base, targets):
     if np.any(np.isnan(list(z.values())[0])):
         return None
-    ut.write_z(y, z, targets, '%s_z.h5' % (out_base))
+    io.write_z(y, z, targets, '%s_z.h5' % (out_base))
     cla = []
     reg = []
     for k, v in model.loss.items():
@@ -115,12 +115,12 @@ def build_model(params, data_file, targets):
 
 
 def read_data(path, model, cache_size=None):
-    file_, data = ut.read_hdf(path, cache_size)
+    file_, data = io.read_hdf(path, cache_size)
     weights = dict()
     for k in model.output_order:
         weights[k] = get_sample_weights(data[k])
-    ut.to_view(data)
-    ut.to_view(weights)
+    io.to_view(data)
+    io.to_view(weights)
     check_weights(model, data, weights)
     return (file_, data, weights)
 
@@ -357,7 +357,7 @@ class App(object):
             os.makedirs(opts.out_dir, exist_ok=True)
 
         # Build model
-        targets = ut.read_targets(opts.train_file, opts.targets)
+        targets = io.read_targets(opts.train_file, opts.targets)
         if len(targets['name']) == 0:
             raise 'No targets match selection!'
         if opts.params is not None:

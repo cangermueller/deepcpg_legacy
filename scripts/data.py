@@ -338,7 +338,7 @@ class App(object):
             np.random.seed(opts.seed)
 
         if opts.cpg_knn is None and opts.seq_file is None:
-            raise 'No input given'
+            raise IOError('No input given')
 
         if opts.cpg_targets is None and opts.stats_file is None:
             raise 'No targets given!'

@@ -9,7 +9,7 @@ from keras.layers import normalization as knorm
 import keras.regularizers as kr
 import keras.optimizers as kopt
 
-import utils as ut
+import deepcpg.utils as ut
 
 
 def cpg_layers(params):

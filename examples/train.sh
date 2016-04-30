@@ -20,7 +20,7 @@ cmd="$root/scripts/train.py
   $root/data/train.h5
   --val_file $root/data/val.h5
   --params ./configs.yaml
-  --targets 'ESC_Ser.*'
+  --targets 'ESC_Ser3.*'
   --nb_epoch 5
   --early_stop 4
   --lr_schedule 3

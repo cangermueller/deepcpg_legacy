@@ -28,3 +28,10 @@ def filter_regex(x, regexs):
             if re.search(regex, xi):
                 xf.add(xi)
     return sorted(list(xf))
+
+
+def dict_to_str(d):
+    s = []
+    for k in sorted(d.keys()):
+        s.append('%s: %s' % (k, str(d[k])))
+    return '\n'.join(s)
