@@ -7,7 +7,7 @@ import os.path as pt
 import pandas as pd
 import numpy as np
 
-import deepcpg.utils as ut
+import deepcpg.io as io
 import deepcpg.net as net
 
 
@@ -110,13 +110,13 @@ class App(object):
         model = net.model_from_list(opts.model)
 
         log.info('Load data')
-        targets = ut.read_targets(opts.data_file)
-        data_file, data = ut.read_hdf(opts.data_file, opts.max_mem)
+        targets = io.read_targets(opts.data_file)
+        data_file, data = io.read_hdf(opts.data_file, opts.max_mem)
         if opts.chromo is not None:
             log.info('Select data')
             select_data(data, opts.chromo, opts.start, opts.end)
             log.info('%d sites selected' % (len(data['pos'])))
-        ut.to_view(data, stop=opts.nb_sample)
+        io.to_view(data, stop=opts.nb_sample)
 
         print('%d samples' % (list(data.values())[0].shape[0]))
         print()
@@ -131,7 +131,7 @@ class App(object):
                           callbacks=[progress],
                           batch_size=opts.batch_size)
         log.info('Write')
-        ut.write_z(data, z, targets, opts.out_file,
+        io.write_z(data, z, targets, opts.out_file,
                    unlabeled=not opts.labeled_only)
 
         data_file.close()

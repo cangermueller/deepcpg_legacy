@@ -14,11 +14,11 @@ function run {
   fi
 }
 
-cmd="./copy.py $E2d/w501_train.h5 -o train.h5 --nb_sample 10000"
-# run $cmd
+root=".."
 
-cmd="./copy.py $E2d/w501_val.h5 -o val.h5 --nb_sample 10000"
-# run $cmd
+cmd="python -u $root/scripts/predict.py
+  $root/data/test.h5
+  --model ./model/model.json ./model/model_weights.h5
+  -o predict.h5"
 
-cmd="./copy.py $E2d/w501_all_sorted.h5 -o test.h5 --nb_sample 10000"
-# run $cmd
+run $cmd
