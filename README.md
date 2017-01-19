@@ -5,6 +5,8 @@ Python package for predicting single-cell CpG methylation states from DNA
 sequence and neighboring CpG sites using multi-task convolutional neural
 networks.
 
+**This repository is depracated. Please refer to the [new DeepCpG package](https://github.com/cangermueller/deepcpg)!**.
+
 Installation
 ------------
 
